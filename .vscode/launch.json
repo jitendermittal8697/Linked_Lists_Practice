@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - linked_lists",
+            "request": "launch",
+            "mainClass": "linked_lists"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - linked_lists_practice",
+            "request": "launch",
+            "mainClass": "linked_lists_practice"
+        }
+    ]
+}
