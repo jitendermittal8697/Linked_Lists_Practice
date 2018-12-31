@@ -6,6 +6,7 @@ public class linked_lists
 {
     int data;
     linked_lists next;
+    int frequency = 0;
     linked_lists(){
         System.out.println("Object Created");
     }
@@ -41,7 +42,7 @@ public class linked_lists
         linked_lists node4 = new linked_lists(5);
         linked_lists node5 = new linked_lists(6);
         linked_lists node6 = new linked_lists(7);
-        linked_lists node7 = new linked_lists(8);
+        linked_lists node7 = new linked_lists(1);
         head.next = node1;
         node1.next = node2;
         node2.next = node3;
@@ -280,6 +281,123 @@ public class linked_lists
         }
         return ptr1.data;
     }
+
+    int get_mid_count_method(linked_lists head){
+        
+        if(head==null)
+        {
+            System.out.println("List Empty");
+            return -1;
+        }
+        else
+        {
+            int count = 0;
+            linked_lists node = head;
+            while(node != null)
+            {
+                node = node.next;
+                count++;
+            }
+            node = head;
+            for(int i = 1 ; i < (count)/2 + 1 ; i++)
+            {
+                node = node.next;
+            }
+            return node.data;
+        }
+    }
+
+    int get_mid_two_ptr_method(linked_lists head){
+        if(head == null)
+        {
+            System.out.println("List Empty");
+            return -1;
+        }
+        else
+        {
+            linked_lists ptr1 = head;
+            linked_lists ptr2 = head;
+            while(ptr2 != null && ptr2.next != null)
+            {
+                ptr2 = ptr2.next.next;
+                ptr1 = ptr1.next;
+            }
+            return ptr1.data;
+        }
+    }
+
+    int get_mid_two_ptr_even_jump_method(linked_lists head){
+        if(head == null)
+        {
+            return -1;
+        }
+        else
+        {
+            linked_lists ptr1 = head;
+            linked_lists ptr2 = head;
+            int count = 1;
+            while(ptr2 != null)
+            {
+                if(count % 2 == 0)
+                {
+                    ptr1 = ptr1.next;
+                }
+                count++;
+                ptr2 = ptr2.next;
+            }
+            return ptr1.data;
+        }
+    }
+
+    int frequency_of_key(linked_lists head, int key){
+        linked_lists node = head;
+        int count = 0;
+        while(node!=null)
+        {
+            if(node.data == key)
+            {
+                count++;
+            }
+            node = node.next;
+        }
+        return count;
+    }
+
+    int frequency_of_key_recursive(linked_lists head, int key){
+        if(head==null)
+            return frequency;
+        if(head.data == key)
+            frequency++;    
+        return frequency_of_key_recursive(head.next, key);    
+    }
+
+    int frequency_of_key_without_global_var_recursive(linked_lists head, int key){
+        
+        /*if(head==null)
+        {
+            return 0;
+        }
+        if(head.data == key)
+        {
+            return 1 + frequency_of_key_without_global_var_recursive(head.next, key);
+        }
+
+        return frequency_of_key_without_global_var_recursive(head.next, key);
+        */
+
+        if(head ==null)
+        {
+            return 0;
+        }
+        int frequency = frequency_of_key_without_global_var_recursive(head.next, key);
+        if(head.data == key)
+        {
+            return frequency + 1;
+        }
+
+        return frequency;
+    }
+
     public static void main(String... args)
     {
         linked_lists obj = new linked_lists(); //object for calling functions
@@ -287,7 +405,6 @@ public class linked_lists
         
         head = obj.ll_create(); //creation of list and initialisation of head 
         obj.ll_traversal(head); //traversal of empty list
-        
-        System.out.println(obj.get_Nth_node_From_End_Two_Ptr_Method(head, 1));
+           
     }
 }
